@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark" style="background-color: #69357e">
+
+  <div class="container-fluid">
+
+    <a routerLink="/home" class="navbar-brand">
+      <img ngSrc="brand.png" height="50" width="50" alt="brand" priority>
+      Taskmaster
+    </a>
+
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+
+        @if (authenticated) {
+
+          @if (user && user.roles.includes('manager')) {
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" routerLink="/task">
+                <i class="fa-solid fa-list-check"></i>&nbsp;My Tasks
+              </a>
+            </li>
+          }
+
+          @if (user && user.roles.includes('admin')) {
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" routerLink="/admin">
+                <i class="fa-solid fa-user-tie"></i>&nbsp;Administration
+              </a>
+            </li>
+          }
+
+          <li *ngIf="authenticated" class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="accountManagement()">
+              <i class="fa-solid fa-user"></i>&nbsp;{{user?.firstName}} {{user?.lastName}}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="logout()">
+              <i class="fa-solid fa-door-closed"></i>&nbsp;Logout
+            </a>
+          </li>
+        } @else {
+
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/login">
+              <i class="fa-solid fa-door-open"></i>&nbsp;Login
+            </a>
+          </li>
+
+        }
+
+      </ul>
+    </div>
+
+  </div>
+
+
+</nav>
+
+
+<!--
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>-->

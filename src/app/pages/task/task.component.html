@@ -1,1 +1,17 @@
-<p>task works!</p>
+<h3 class="text-center mt-5">Task Management</h3>
+<hr>
+
+<div class="row m-4">
+  <div class="col-sm-12 col-md-3 col-xl-2 mt-4">
+
+    <nav class="nav nav-pills flex-column flex-sm-row justify-content-center  h5">
+      <a class="nav-link mb-3 mt-3" routerLinkActive="active" [routerLink]="['list']">Task List</a>
+      <a class="nav-link mb-3 mt-3" routerLinkActive="active" [routerLink]="['new']">Create Task</a>
+    </nav>
+
+  </div>
+
+  <div class="col-sm-12 col-md-9 col-xl-10 mt-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

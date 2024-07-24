@@ -1,0 +1,71 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active': state === 'active'}" (click)="getTasks('active')"
+       href="javascript:void(0)">List</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active': state === 'archived'}" (click)="getTasks('archived')"
+       href="javascript:void(0)">Archived</a>
+  </li>
+</ul>
+
+@if (!tasks?.content?.length && !loading) {
+  <div class="alert alert-info mt-5" role="alert">
+    No tasks found.
+  </div>
+}
+
+@if (loading) {
+  <div class="progress m-5">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100"
+         aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+  </div>
+}
+
+
+
+<nav class="mt-5" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+
+<!--
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Tasks</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let task of tasks">
+                <td>{{ task.name }}</td>
+                <td>{{ task.dueDate | date: 'medium' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" (click)="editTask(task)">Edit</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteTask(task)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->

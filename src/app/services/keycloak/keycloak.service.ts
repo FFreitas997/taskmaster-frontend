@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import Keycloak, {KeycloakProfile} from "keycloak-js";
+import Keycloak from "keycloak-js";
+import {BehaviorSubject} from "rxjs";
+import {UserProfile} from "./user-profile";
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +9,9 @@ import Keycloak, {KeycloakProfile} from "keycloak-js";
 export class KeycloakService {
 
   private _keycloak: Keycloak | undefined;
-  private _profile: KeycloakProfile | undefined;
   private _token: string | undefined;
-  private _roles: string[] = [];
+  private _user = new BehaviorSubject<UserProfile | null>(null);
+  private _userProfile: UserProfile | undefined;
 
   constructor() {
   }
@@ -21,14 +23,23 @@ export class KeycloakService {
       clientId: 'taskmaster-client'
     });
 
-    const authenticated = await this._keycloak?.init({
-      onLoad: 'login-required'
-    });
+    const authenticated = await this._keycloak?.init({onLoad: 'login-required'});
 
     if (authenticated) {
-      this._profile = await this._keycloak?.loadUserProfile();
+      const userInfo = await this._keycloak?.loadUserProfile();
       this._token = this._keycloak?.token
-      this._roles = this._keycloak?.resourceAccess?.['taskmaster-client']?.roles || [];
+      const profile: UserProfile = {
+        id: userInfo?.id || '',
+        username: userInfo?.username || '',
+        email: userInfo?.email || '',
+        firstName: userInfo?.firstName || '',
+        lastName: userInfo?.lastName || '',
+        roles: this._keycloak?.realmAccess?.roles || []
+      }
+      this._userProfile = profile;
+      this._user.next(profile);
+      console.log(this.token)
+      console.log('User is authenticated');
     }
   }
 
@@ -48,15 +59,15 @@ export class KeycloakService {
     return this._keycloak?.accountManagement()
   }
 
-  get profile(): KeycloakProfile | undefined {
-    return this._profile;
-  }
-
   get token(): string | undefined {
     return this._token;
   }
 
-  get roles(): string[] {
-    return this._roles;
+  get user(): BehaviorSubject<UserProfile | null> {
+    return this._user;
+  }
+
+  get userProfile(): UserProfile | undefined {
+    return this._userProfile;
   }
 }

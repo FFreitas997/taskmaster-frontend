@@ -7,12 +7,12 @@ export const adminGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   if (service.keycloak?.isTokenExpired()) {
-    router.navigate(['/login']).then();
+    router.navigate(['/home']).then();
     return false;
   }
 
-  if (!service.roles.includes('admin')) {
-    router.navigate(['/login']).then();
+  if (!service.userProfile || !service.userProfile.roles.includes('admin')) {
+    router.navigate(['/home']).then();
     return false;
   }
 

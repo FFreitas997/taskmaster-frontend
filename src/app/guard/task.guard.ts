@@ -7,12 +7,12 @@ export const taskGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   if (service.keycloak?.isTokenExpired()) {
-    router.navigate(['/login']).then();
+    router.navigate(['/home']).then();
     return false;
   }
 
-  if (!service.roles.includes('manager')) {
-    router.navigate(['/login']).then();
+  if (!service.userProfile || !service.userProfile?.roles.includes('manager')) {
+    router.navigate(['/home']).then();
     return false;
   }
 
