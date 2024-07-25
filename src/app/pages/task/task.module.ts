@@ -5,6 +5,7 @@ import {TaskRoutingModule} from "./task-routing.module";
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -17,7 +18,9 @@ import { TaskEditComponent } from './components/task-edit/task-edit.component';
   ],
   imports: [
     CommonModule,
-    TaskRoutingModule
+    TaskRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class TaskModule { }

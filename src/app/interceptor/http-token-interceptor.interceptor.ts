@@ -9,9 +9,9 @@ export const httpTokenInterceptorInterceptor: HttpInterceptorFn = (req, next) =>
 
   if (token) {
     req = req.clone({
-      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
+      headers: new HttpHeaders({Authorization: `Bearer ${token}`})
     });
   }
 
-  return next(req);
+  return next(req)
 };

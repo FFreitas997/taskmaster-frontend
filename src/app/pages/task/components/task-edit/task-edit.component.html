@@ -1,1 +1,51 @@
-<p>task-edit works!</p>
+<div class="row">
+  <div class="col-sm-12">
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Task Title</span>
+        <input type="text" formControlName="title" class="form-control" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Task Description</span>
+        <textarea formControlName="description" class="form-control" aria-label="Task Description"></textarea>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Priority</span>
+        <select formControlName="priority" class="form-select" aria-label="Priority">
+          <option selected value="LOW">Low</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="HIGH">High</option>
+        </select>
+        <span class="input-group-text ms-2">Status</span>
+        <select formControlName="status" class="form-select" aria-label="Status">
+          <option selected value="TODO">To Do</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="FAILED">Failed</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Due Date</span>
+        <input type="datetime-local" formControlName="dueDate" class="form-control" aria-label="Due Date">
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 gap-3">
+          @if (loading) {
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          } @else {
+            <button [disabled]="taskForm.invalid" type="submit" class="btn btn-info">Submit Task</button>
+          }
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

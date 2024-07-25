@@ -1,1 +1,77 @@
-<p>task-detail works!</p>
+<div class="container-fluid m-3 p-2">
+
+  <div class="d-flex w-100 justify-content-between mt-3 mb-5">
+    <span class="display-6">{{ task?.title }}</span>
+    <div class="d-flex justify-content-end gap-4">
+      <a class="link-secondary" href="javascript:void(0)" (click)="onEdit()">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </a>
+      @if (loadingArchive) {
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      } @else {
+        <a class="link-secondary" href="javascript:void(0)" (click)="onArchive()">
+          <i class="fa-solid fa-trash"></i>
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="row justify-content-start gap-3 mt-3 mb-3">
+    <div class="col-md-3">
+      <strong>Due Date: </strong> {{ task?.dueDate | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+    <div class="col-md-3">
+      <strong>Priority: </strong> {{ task?.priority }}
+    </div>
+    <div class="col-md-3">
+      <strong>Status: </strong> {{ task?.status }}
+    </div>
+    @if (task?.lastModifiedAt) {
+      <div class="col-md-3">
+        <strong>Last Modified At: </strong>{{ task?.lastModifiedAt | date: 'dd/MM/yyyy HH:mm' }}
+      </div>
+    }
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col-md-12">
+      <strong>Description: </strong> <span>{{ task?.description }}</span>
+    </div>
+  </div>
+
+  @if (task?.comments && task?.comments?.length) {
+    <div class="row mt-3 mb-3">
+      <div class="col-md-12">
+        <p>Comments: </p>
+        <ul class="list-group list-group-numbered">
+          @for (comment of task?.comments; track comment.id) {
+            <li class="list-group-item">{{ comment.comment }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  }
+
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
+      <div class="form-floating">
+        <textarea rows="5" [(ngModel)]="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Comments</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex w-100 justify-content-end gap-3 mt-3 mb-3">
+    @if (loading) {
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    } @else {
+      <button [disabled]="!comment || !comment.length" class="btn btn-info" type="button" (click)="onCreateComment()">
+        Submit Comment
+      </button>
+    }
+  </div>
+</div>

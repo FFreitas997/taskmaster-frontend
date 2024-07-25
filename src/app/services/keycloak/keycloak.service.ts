@@ -38,8 +38,6 @@ export class KeycloakService {
       }
       this._userProfile = profile;
       this._user.next(profile);
-      console.log(this.token)
-      console.log('User is authenticated');
     }
   }
 
